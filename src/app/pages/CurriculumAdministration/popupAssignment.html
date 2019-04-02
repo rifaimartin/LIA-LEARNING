@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">Assignment Activity - Form</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="SaveAssignment()">
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Assigntment Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="formAssignment.Name" ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Lesson Description</label>
+                        <div class="col-md-8">
+                            <input type="textarea" class="form-control" ng-model="formAssignment.Description"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Minimum Grade Value</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="formAssignment.MinGradeValue" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Maximum Grade Value</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="formAssignment.MaxGradeValue" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Grade (Score) to Pass</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="formAssignment.GradeToPassValue" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Grade Weight</label>
+                        <div class="col-md-8">
+                            <div class="input-group"></div>
+                            <input class="form-control align-right input-persen" style="width:50%" min="1" max="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-readonly="!controlDetails" ng-model="formAssignment.GradeWeight" />
+                            <span class="persen">%</span>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="controlDetails">
+                                <button ng-show="!addDetails" type="submit" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show="addDetails" type="submit" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show='editDetails == false' type="button" class="btn btn-default pull-right col-xs-6 col-md-2"
+                                    ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                                <button ng-click="controlDetails = !controlDetails" type="button" ng-show='editDetails == true'
+                                    class="btn btn-default pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <div ng-show="!controlDetails">
+                                <button ng-if="isTeacher == undefined" ng-click="editDetails = true;controlDetails = !controlDetails;addDetails=false;"
+                                    type="button" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button type="button" class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="controlDetails = !control;editDetails = true;" type="button" ng-show='hideButton'></button>

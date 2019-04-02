@@ -1,0 +1,254 @@
+<div class="row" style="line-height:2">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title" ng-show="mode=='create'">Create New Lesson Activity</h3>
+                <h3 class="panel-title" ng-show="mode=='edit'">Edit Lesson Activity</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-2">Topic Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="form.topicName" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-2">Topic Description</label>
+                        <div class="col-md-10">
+                            <textarea type="text" class="form-control" ng-model="form.topicDesc"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-2">Availability</label>
+                        <div class="col-md-10">
+                            <input type="radio" name="availability" /> Available when offline class available
+                            <br />
+                            <input type="radio" name="availability" /> Avalable when the parallel activity of offline class starts
+                            <br />
+                            <input type="radio" name="availability" /> 15.00 - 19.00
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-2">Allow Student Review</label>
+                        <div class="col-md-10">
+                            <input type="radio" name="studentReview" /> Student can navigate lesson from the start
+                            <br />
+                            <input type="radio" name="studentReview" /> Student can only navigate the lesson once
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-2">Grade</label>
+                        <div class="col-md-10">
+                            <input type="radio" name="grade" /> Graded
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Grade Type
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-readonly="!control">
+                                        <option>Lesson</option>
+                                        <option>Quiz</option>
+                                        <option>Assignment</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Maximum Grade Value
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Grade (score) to pass
+                                </div>
+                                <div class="col-md-4">
+                                        <input type="number" class="form-control" />
+                                </div>
+                            </div>
+
+                            <input type="radio" name="grade" /> Not Graded
+                            <br />
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-2">Restrictions</label>
+                        <div class="col-md-10">
+
+                            <div>
+                                <input type="checkbox" name="restriction" />
+                                <b>Activity Completion</b>
+                                <br/>
+                                <small>Require students to complete (or not complete) another activity.</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">Have to Complete</div>
+                                <div class="col-md-6">
+                                    <select class="form-control">
+                                        <option>Choose topic or activity</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <input type="checkbox" name="restriction" />
+                                <b>Student Profile</b>
+                                <br/>
+                                <small>Control access based on fields within the student’s profile.</small>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">Students</div>
+                                <div class="col-md-9">
+                                    <select class="form-control" style="width:200px; display:inline">
+                                        <option>Choose student property</option>
+                                    </select>
+                                    &nbsp; &nbsp; is equal to &nbsp; &nbsp;
+                                    <input type="text" class="form-control" style="width:100px; display:inline;" />
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <input type="checkbox" name="restriction" />
+                                <b>Grade</b>
+                                <br/>
+                                <small>Require students to achieve a specified grade.</small>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">Grade of</div>
+                                <div class="col-md-9">
+                                    <select class="form-control" style="width:200px; display:inline">
+                                        <option>Choose topic or activity</option>
+                                    </select>
+                                    &nbsp; &nbsp; >= &nbsp; &nbsp;
+                                    <input type="text" class="form-control" style="width:80px; display:inline" /> &nbsp; &nbsp;
+                                    < &nbsp; &nbsp; <input type="text" class="form-control" style="width:80px; display:inline" />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="control">
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-show="!add" ng-click="edits = true;control = !control;doEdit();">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-show="add" ng-click="edits = true;control = !control;doSave();">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-show='edits == false' ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="control = !control" ng-show='edits == true'>
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <div ng-show="!control">
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-click="edits = true;control = !control;add=false;">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+
+
+                <div style="margin-top: 80px; margin-bottom:40px">
+                    <ul class="nav nav-tabs" style="background-color:rgba(42, 42, 175, 0.89)">
+                        <li class="nav-item">
+                            <a class="nav-link active" ng-click="setTab('pages')">Pages</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-click="setTab('report')">Report</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-click="setTab('grades')">Grades</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12" ng-show="tab=='pages'">
+                        <div class="btn-group">
+                            <button ng-click="addPage()" class="btn btn-success btn-with-icon example-responsive">
+                                <i class="fa fa-create"></i>
+                                <span>Add Page</span>
+                            </button>
+                            <button class="btn btn-warning btn-with-icon example-responsive">
+                                <i class="fa fa-edit"></i>
+                                <span>Edit</span>
+                            </button>
+
+                            <button class="btn btn-warning btn-with-icon example-responsive">
+                                    <i class="fa fa-eye"></i>
+                                    <span>Preview</span>
+                                </button>
+                                <button class="btn btn-danger btn-with-icon example-responsive">
+                                    <i class="fa fa-delete"></i>
+                                    <span>Delete</span>
+                                </button>
+                        </div>
+
+                        <div st-table="data" st-pipe="callServer" st-safe-src="pages">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover custom-table">
+                                    <thead>
+                                        <tr class="sortable">
+                                            <th class="v-align" st-ratio="20" st-sort="id" rowspan="2" st-sort-default="false">No</th>
+                                            <th class="v-align-m">Select</th>
+                                            <th class="v-align-m">Page Title</th>
+                                            <th class="v-align-m">Page Type</th>
+                                            <th class="v-align-m">Jump</th>
+                                            <th class="v-align-m">Jump Page</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-show="!isLoading">
+                                        <tr ng-repeat="s in pages " ng-class="$index %2==0? 'table-strip': '' " context-menu="menuOptions" data-id="{{s.Id}}">
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Id}}</td>
+                                            <td row-select="s" ng-click="select(s.Id)" class="v-align row-select"></td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.pageTitle}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.pageType}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.jump}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.jumpPage}}</td>
+                                        </tr>
+                                        <tr ng-if="results.length ==  0">
+                                            <td colspan="6">Data not found</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-show="isLoading">
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="loading-indicator"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-show="tab=='report'">
+                        report
+                    </div>
+
+                    <div class="col-md-12" ng-show="tab=='grades'">
+                        grades
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

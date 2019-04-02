@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">{{priviges.MenuLabel}} - Form</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" name="controlForm" ng-submit="submit()">
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Category</label>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <ui-select ng-model="form.selectedResourceCategory" lass="form-control" theme="bootstrap"
+                                    ng-disabled="!control">
+                                    <ui-select-match placeholder="Select Category">{{$select.selected.Category}}</ui-select-match>
+                                    <ui-select-choices repeat="list in resourcecategory | filter: $select.search">
+                                        <div ng-bind-html="list.Category | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-disabled='!control' ng-click="getResourceCategory()">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <span class="help-block bs-invalid-msg" ng-if="controlForm.form.selectedMasterProgram.$invalid"><span
+                                    class="glyphicon glyphicon-warning-sign"></span> &nbsp;This field is required.</span>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Title</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="form.ResourceName" ng-readonly="!control || form.Active==false">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">File</label>
+                        <div class="col-md-10">
+                            <input type="file" file-model="form.myFile" ng-disabled="!control || form.Active==false"
+                                ng-show="!disableFileInput">
+                            <label ng-show="disableFileInput"><i><a class="on-hover" ng-click="downloadLocation(form.FileUrl)">{{form.FileUrl}}</a>
+                                </i></label> <button type="button" ng-show="disableFileInput && control" class="btn btn-custom margin-left" ng-disabled="!control || form.Active==false" ng-click="disableFileInput=false">Change</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row clearfix">
+                        <label class="col-sm-2">Tags</label>
+                        <div class="col-md-10">
+                                <ui-select multiple ng-model="form.selectedResourceTag" class="form-control" theme="bootstrap" ng-disabled="!control" ng-readonly="!control" close-on-select="false"  >
+                                    <ui-select-match placeholder="Select Tag">{{$item.Tag}}</ui-select-match>
+                                    <ui-select-choices repeat="list in resourcetag | filter:$select.search">
+                                      {{list.Tag}}
+                                    </ui-select-choices>
+                                  </ui-select>                                  
+                        </div>
+                    </div> -->
+                    <span class="help-block bs-invalid-msg" ng-show="controlForm.form.selectedSession.$invalid"><span
+                            class="glyphicon glyphicon-warning-sign"></span> &nbsp;This field is required.</span>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="control">
+                                <button ng-show="!add" type="submit" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show="add" type="submit" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button type="button" ng-show='edits == false' class="btn btn-default pull-right col-xs-6 col-md-2"
+                                    ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                                <button type="button" ng-click="control = !control" ng-show='edits == true' class="btn btn-default pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <div ng-show="!control">
+                                <button ng-show="priviges.CanUpdate" type="button" ng-click="edits = true;control = !control;add=false;" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button type="button" class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = !control;edit = true;" type="button" ng-show='hideButton'></button>

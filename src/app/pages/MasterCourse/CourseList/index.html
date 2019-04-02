@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Drop Out - List</h3>
+                <content-top></content-top>
+            </div>
+            <div class="panel-body">
+                <pintree ng-click="show = !show" ng-class="{ active: show }">
+                    <i ng-class="show?'fa fa-thumb-tack fa-1x fa-border':'fa fa-thumb-tack fa-1x fa-border fa-rotate-90'" aria-hidden="true"></i>
+                </pintree>
+                <div class="row">
+                    <div ng-show="show" class="col-sm-12 col-md-3 treeBorder" style="padding-left:0px !important; padding-right:10px !important;">
+                        <form ng-submit="search()">
+                            <!-- <div class="form-group row clearfix">
+                                <label></label>
+                                <select class="form-control">
+                                    <option>All</option>
+                                </select>
+                            </div> -->
+                            <div class="form-group">
+                                <label>Select Program</label>
+                                <div isteven-multi-select input-model="programsGrouped" output-model="programsGroupedSelected" button-label="name" item-label="name" tick-property="ticked" group-property="msGroup">
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label>Select Schedule</label>
+                                <div isteven-multi-select input-model="slotJadwalGrouped" output-model="slotJadwalGroupedSelected" button-label="name" item-label="name" tick-property="ticked" group-property="msGroup">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Room</label>
+                                <div isteven-multi-select input-model="ruangGrouped" output-model="ruangGroupedSelected" button-label="name" item-label="name" tick-property="ticked" group-property="msGroup">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Teacher</label>
+                                <div isteven-multi-select input-model="guruGrouped" output-model="guruGroupedSelected" button-label="name" item-label="name" tick-property="ticked" group-property="msGroup">
+                                </div>
+                            </div> -->
+                            <button type="submit" class="btn btn-custom btn-with-icon example-responsive btn-block">
+                                <i class="fa fa-search"></i>
+                                <span>Search</span>
+                            </button>
+                        </form>
+                        <br>
+                        <br>
+                        <div style="overflow-x: auto;">
+                            <div id="js-tree" js-tree="basicConfig" ng-model="treeData" tree="basicTree" class="tree-branch"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" ng-class="{'col-md-12':!show,'col-md-9':show}" style="padding-left:0px !important; padding-right:0px !important;">
+                        <ng-include src="template" ng-show="step"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

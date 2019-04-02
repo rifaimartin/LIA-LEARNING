@@ -1,0 +1,256 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">Quiz Activity - Form</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="SaveQuiz()">
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Quiz Name</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="formQuiz.Name" ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Quiz Description</label>
+                        <div class="col-md-9">
+                            <input type="textarea" class="form-control" ng-model="formQuiz.Description" ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Minimum Grade Value</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="formQuiz.MinGradeValue" style="text-align: right"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Maximum Grade Value</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="formQuiz.MaxGradeValue" style="text-align: right"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Grade (Score) to pass</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="formQuiz.GradeToPassValue" style="text-align: right"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-readonly="!controlDetails">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Grade Weight</label>
+                        <div class="col-md-9">
+                            <input class="form-control align-right input-persen" min="1" max="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                ng-model="formQuiz.GradeWeight" ng-readonly="!controlDetails" />
+                            <span class="persen">%</span>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">Score Conversion</label>
+                        <div class="col-md-9">
+                            <ui-select ng-model="formQuiz.ScoreConversion" lass="form-control" theme="bootstrap"
+                                ng-disabled="!controlDetails">
+                                <ui-select-match placeholder="Select Score Conversion">{{$select.selected.ConversionCode}}</ui-select-match>
+                                <ui-select-choices repeat="list in ScoreConversion | filter: $select.search">
+                                    <div ng-bind-html="list.ConversionCode | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">
+                            <!-- <label class="checkbox-inline custom-checkbox nowrap"> -->
+                            <label class="">
+                                <input type="checkbox" ng-model="formQuiz.MultipleChoice" ng-disabled="!controlDetails">
+                                <span></span>
+                            </label>
+                            <b>Multiple Choice</b>
+                        </label>
+                        <div class="col-sm-9">
+                            <button class="btn btn-custom" type="button" ng-click="showFormAddQuestion()" ng-readonly="!controlDetails"
+                                ng-disabled="!controlDetails">Add Question</button>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table tabel-hover table-bordered custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Question</th>
+                                        <th>Choices</th>
+                                        <th>Correct Point</th>
+                                        <th>Incorrect Point</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="s in formQuiz.Questions" ng-init="index=$index">
+                                    <tr ng-repeat="d in s.QuizQuestionsMultipleChoices">
+                                        <td class="v-align-m" ng-if="$index == 0" rowspan="{{s.QuizQuestionsMultipleChoices.length}}">{{index+1}}</td>
+                                        <td class="v-align-m" ng-if="$index == 0" rowspan="{{s.QuizQuestionsMultipleChoices.length}}"
+                                            ng-bind-html="s.Question"></td>
+                                        <td class="v-align-m" style="text-align:left;"><span ng-bind-html="d.Choice"></span>
+                                            <i class="fa fa-check" ng-if="d.Choice == s.Answer.Choice"></i></td>
+                                        <td class="v-align-m" ng-if="$index == 0" rowspan="{{s.QuizQuestionsMultipleChoices.length}}"><span
+                                                class="text-right">{{s.RightPoint}}</span></td>
+                                        <td class="v-align-m" ng-if="$index == 0" rowspan="{{s.QuizQuestionsMultipleChoices.length}}"><span
+                                                class="text-right">{{s.WrongPoint}}</span></td>
+                                        <td class="v-align-m text-center" ng-if="$index == 0" rowspan="{{s.QuizQuestionsMultipleChoices.length}}">
+                                            <i ng-click="deleteQuestions($index,'Quiz')" type="button" ng-disabled="!controlDetails" style="cursor: pointer;text-align: center;" class="ion-trash-b deleteItem text-danger"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if="formQuiz.Questions.length == 0">
+                                    <tr>
+                                        <td colspan="10" class="text-center">Data Not Found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">
+                            <!-- <label class="checkbox-inline custom-checkbox nowrap"> -->
+                            <label class="">
+                                <input type="checkbox" ng-model="formQuiz.TrueOrFalse" ng-disabled="!controlDetails">
+                                <span></span>
+                            </label>
+                            <b>True Or False</b>
+                        </label>
+                        <div class="col-sm-9">
+                            <button class="btn btn-custom" type="button" ng-click="addRowQuiz('TOF')" ng-disabled="!formQuiz.TrueOrFalse || !controlDetails">Add
+                                Question</button>
+                            <label>
+                                <input ng-readonly="formQuiz.TrueOrFalse==false" type="number" ng-model="$parent.TrueOrFalseRow"
+                                    ng-readonly="!controlDetails" class="form-control pull-left custom-length">&nbsp;Rows
+                            </label>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-bordered custom-table">
+                                <thead>
+                                    <tr>
+                                        <th class="wd44">No</th>
+                                        <th>Question</th>
+                                        <th>True / False</th>
+                                        <th>Point</th>
+                                        <th class="wd44">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="s in formQuiz.QuestionsTOF">
+                                        <td>{{$index+1}}</td>
+                                        <td class="input-table">
+                                            <input type="text" class="form-control custom-control free-text" ng-model="formQuiz.QuestionsTOF[$index].Question"
+                                                ng-readonly="!controlDetails">
+                                        </td>
+                                        <td class="input-table">
+                                            <select ng-model="formQuiz.QuestionsTOF[$index].IsTrue" class="form-control custom-control free-text">
+                                                <option value="true">True</option>
+                                                <option value="false">False</option>
+                                            </select>
+                                        </td>
+                                        <td class="input-table">
+                                            <input type="text" class="form-control custom-control free-text" ng-model="formQuiz.QuestionsTOF[$index].Point"
+                                                style="text-align: right" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                ng-readonly="!controlDetails">
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-click="deleteQuestions($index,'TOF')" type="button" ng-disabled="!controlDetails" style="cursor: pointer;text-align: center;" class="ion-trash-b deleteItem text-danger"></i>
+
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="formQuiz.QuestionsTOF.length==0 || formQuiz.QuestionsTOF==undefined">
+                                        <td colspan="7">Data Not Found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-3">
+                            <!-- <label class="checkbox-inline custom-checkbox nowrap"> -->
+                            <label class="">
+                                <input type="checkbox" ng-model="formQuiz.ShortAnswer" ng-disabled="!controlDetails">
+                                <span></span>
+                            </label>
+                            <b>Short Answer</b>
+                        </label>
+                        <div class="col-sm-9">
+                            <button class="btn btn-custom" ng-click="addRowQuiz('SA')" type="button" ng-disabled="!formQuiz.ShortAnswer || !controlDetails">Add
+                                Question</button>
+                            <label>
+                                <input ng-readonly="formQuiz.ShortAnswer==false" type="number" ng-model="$parent.ShortAnswerRow"
+                                    ng-readonly="!controlDetails" class="form-control pull-left custom-length">&nbsp;Rows
+                            </label>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-bordered custom-table">
+                                <thead>
+                                    <tr>
+                                        <th class="wd44">No</th>
+                                        <th>Question</th>
+                                        <th>Max Point</th>
+                                        <th class="wd44">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="s in formQuiz.QuestionsSA">
+                                        <td>{{$index+1}}</td>
+                                        <td class="input-table">
+                                            <input type="text" class="form-control custom-control free-text" ng-model="formQuiz.QuestionsSA[$index].Question"
+                                                ng-readonly="!controlDetails">
+                                        </td>
+                                        <td class="input-table">
+                                            <input type="text" class="form-control custom-control free-text" ng-model="formQuiz.QuestionsSA[$index].Point"
+                                                ng-readonly="!controlDetails" style="text-align: right" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-click="deleteQuestions($index,'SA')" type="button" ng-disabled="!controlDetails" style="cursor: pointer;text-align: center;" class="ion-trash-b deleteItem text-danger"></i>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="formQuiz.QuestionsSA.length==0 || formQuiz.QuestionsSA==undefined">
+                                        <td colspan="7">Data Not Found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <!-- <div ng-show="controlDetails">
+                                <button ng-show="!addDetails" type="submit" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show="addDetails" type="submit" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show='editDetails == false' type="button" class="btn btn-default pull-right col-xs-6 col-md-2"
+                                    ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                                <button ng-click="controlDetails = !controlDetails" type="button" ng-show='editDetails == true'
+                                    class="btn btn-default pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div> -->
+                            <div >
+                                <!-- <button ng-if="isTeacher == undefined" ng-click="editDetails = true;controlDetails = !controlDetails;addDetails=false;"
+                                    type="button" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-edit"></i> Edit</button> -->
+                                <button type="button" class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = !control;edit = true;" type="button" ng-show='hideButton'></button>

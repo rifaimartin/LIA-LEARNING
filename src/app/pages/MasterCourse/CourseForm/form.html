@@ -1,0 +1,290 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title" ng-show="mode=='create'">Create New Master Course</h3>
+                <h3 class="panel-title" ng-show="mode=='edit'">Edit Master Course</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Program</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.Program" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Kurikulum</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.Kurikulum" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Course Full Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.CourseFullName" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Course Short Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.CourseShortName" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Description</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.Description" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Is Active</label>
+                        <div class="col-md-8">
+                            <label class="radio-inline custom-radio">
+                                <input type="radio" name="isActive" value="1" ng-model="form.IsActive" ng-disabled="!control">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-inline custom-radio">
+                                <input type="radio" name="isActive" ng-model="form.IsActive" value="0" ng-disabled="!control">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Students Access Type</label>
+                        <div class="col-md-8">
+                            <select name="studentAccess" class="form-control" ng-model="form.StudentAccess" ng-readonly="!control">
+                                <option value="1">Private Registered Student</option>
+                                <option value="2">Private WIth Registration</option>
+                                <option value="3">Public</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Enable Completion Tracking</label>
+                        <div class="col-md-8">
+                            <label class="radio-inline custom-radio">
+                                <input type="radio" name="enableCompletion" value="1" ng-model="form.EnableCompletion" ng-disabled="!control">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-inline custom-radio">
+                                <input type="radio" name="enableCompletion" ng-model="form.EnableCompletion" value="0" ng-disabled="!control">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="control">
+
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-show="!add" ng-click="edits = true;control = !control;doEdit();">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-show="add" ng-click="edits = true;control = !control;doSave();">
+                                    <i class="fa fa-save"></i> Save</button>
+
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="control = !control; $close();" ng-show='edits == false'>
+                                    <i class="fa fa-close"></i> Cancel</button>
+
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="control = !control" ng-show='edits == true'>
+                                    <i class="fa fa-close"></i> Cancel</button>
+
+                            </div>
+                            <div ng-show="!control">
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-click="edits = true;control = !control;add=false;">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+
+
+                <div style="margin-top: 80px; margin-bottom:40px">
+                    <ul class="nav nav-tabs" style="background-color:rgba(42, 42, 175, 0.89)">
+                        <li class="nav-item">
+                            <a class="nav-link active" ng-click="setTab('topic')">Topics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-click="setTab('grade')">Course Grade</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-click="setTab('completion')">Course Completion Definition</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12" ng-show="tab=='topic'">
+                        <div class="btn-group">
+                            <button data-toggle="modal" ng-click="addTopic()" class="btn btn-success btn-with-icon example-responsive">
+                                <i class="fa fa-create"></i>
+                                <span>Add Topic</span>
+                            </button>
+                            <button class="btn btn-warning btn-with-icon example-responsive">
+                                <i class="fa fa-edit"></i>
+                                <span>Edit</span>
+                            </button>
+                        </div>
+
+                        <div st-table="data" st-pipe="callServer" st-safe-src="topics">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover custom-table">
+                                    <thead>
+                                        <tr class="sortable">
+                                            <th class="v-align" st-ratio="20" st-sort="id" rowspan="2" st-sort-default="false">No</th>
+                                            <th class="v-align-m">Select</th>
+                                            <th class="v-align-m">Course Topic</th>
+                                            <th class="v-align-m">Summary</th>
+                                            <th class="v-align-m">Instructional Objective</th>
+                                            <th class="v-align-m">Sort Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-show="!isLoading">
+                                        <tr ng-repeat="s in topics " ng-class="$index %2==0? 'table-strip': '' " context-menu="menuOptions" data-id="{{s.Id}}">
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Id}}</td>
+                                            <td row-select="s" ng-click="select(s.Id)" class="v-align row-select"></td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.CourseTopic}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Summary}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Objective}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.SortOrder}}</td>
+                                        </tr>
+                                        <tr ng-if="results.length ==  0">
+                                            <td colspan="6">Data not found</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-show="isLoading">
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="loading-indicator"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-show="tab=='grade'">
+                        <div class="btn-group">
+                            <button data-toggle="modal" ng-click="addGrade()" class="btn btn-success btn-with-icon example-responsive">
+                                <i class="fa fa-create"></i>
+                                <span>Add Grade Item</span>
+                            </button>
+                            <button class="btn btn-warning btn-with-icon example-responsive" ng-click="addGrade()">
+                                <i class="fa fa-edit"></i>
+                                <span>Edit</span>
+                            </button>
+                        </div>
+
+                        <div st-table="data" st-pipe="callServer" st-safe-src="grades">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover custom-table">
+                                    <thead>
+                                        <tr class="sortable">
+                                            <th class="v-align" st-ratio="20" st-sort="id" rowspan="2" st-sort-default="false">No</th>
+                                            <th class="v-align-m">Select</th>
+                                            <th class="v-align-m">Activity</th>
+                                            <th class="v-align-m">Weight</th>
+                                            <th class="v-align-m">Grade System</th>
+                                            <th class="v-align-m">Minimum</th>
+                                            <th class="v-align-m">Maximum Value</th>
+                                            <th class="v-align-m">Grade To Pass</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-show="!isLoading">
+                                        <tr ng-repeat="s in grades " ng-class="$index %2==0? 'table-strip': '' " context-menu="menuOptions" data-id="{{s.Id}}">
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Id}}</td>
+                                            <td row-select="s" ng-click="select(s.Id)" class="v-align row-select"></td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Activity}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Weight}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Grade}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Minimum}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Maximum}}</td>
+                                            <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.GradePass}}</td>
+                                        </tr>
+                                        <tr ng-if="results.length ==  0">
+                                            <td colspan="6">Data not found</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-show="isLoading">
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="loading-indicator"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-show="tab=='completion'">
+                        <form class="form-horizontal">
+                            <div class="form-group row cleafix">
+                                <label class="col-md-12">
+                                    <b>General</b>
+                                </label>
+                                <label class="col-md-4">Completion Requirement</label>
+                                <div class="col-md-8">
+                                    <select name="completion" class="form-control" ng-model="cmp.completion">
+                                        <option value="1">Course is complete when ALL conditions are met</option>
+                                        <option value="2"> Course is complete when ANY of the conditions are met</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row cleafix" style="margin-top: 50px">
+                                <label class="col-md-12">
+                                    <b>This Course Activities Completion</b>
+                                </label>
+                                <label class="col-md-12">Select activity to indicate completion</label>
+                                <div class="col-md-1">&nbsp;</div>
+                                <div class="col-md-11">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Lesson 1 Compound Statement
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Lesson 2 Compound Statement
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Lesson 3 Complex Statement
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Lesson 4 Adjective
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Lesson 5 Adverbal
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

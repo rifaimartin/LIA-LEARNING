@@ -1,0 +1,58 @@
+<div class="horizontal-scroll">
+  <div class="form-group select-page-size-wrap ">
+      <div class="add-row-editable-table">
+          <button class="btn btn-primary" ng-click=""><i class="fa fa-file-text-o"></i> Create</button>
+        </div>
+  </div>
+  <table class="table" st-table="smartTableData">
+    <thead>
+    <tr class="sortable bg-blue s">
+      <th class="table-id" st-sort="id" st-sort-default="true">No</th>
+      <th st-sort="age" center>Aksi</th>
+      <th st-sort="firstName center ">Nama Cabang</th>
+      <th st-sort="lastName" center>Tipe </th>
+      <th st-sort="username" center>Alamat</th>
+      <th st-sort="email" center>Kota</th>
+      <th st-sort="age" center>Provinsi</th>
+   
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th><input st-search="firstName" placeholder="Nama Cabang" class="input-sm form-control search-input"
+                 type="search"/></th>
+      <th><input st-search="lastName" placeholder="Tipe" class="input-sm form-control search-input"
+                 type="search"/></th>
+      <th><input st-search="username" placeholder="Alamat" class="input-sm form-control search-input"
+                 type="search"/></th>
+      <th><input st-search="email" placeholder="Kota" class="input-sm form-control search-input" type="search"/>
+      </th>
+      <th><input st-search="age" placeholder="Provinsi" class="input-sm form-control search-input" type="search"/>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in smartTableData">   
+      <td class="table-id">{{item.id}}</td>
+      <td>
+        <div class="buttons" ng-show="!rowform.$visible">
+            <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">Edit</button>
+            <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeUser($index)">Delete</button>
+       </div>
+   </td>
+      <td>{{item.firstName}}</td>
+      <td>{{item.lastName}}</td>
+      <td>{{item.username}}</td>
+      <td><a class="email-link" ng-href="mailto:{{item.email}}">{{item.email}}</a></td>
+      <td>{{item.age}}</td>  
+    </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7" class="text-right">
+          <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

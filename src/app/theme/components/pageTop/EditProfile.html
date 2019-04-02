@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title" >Edit Profile</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" style="color: #616161" ng-click="$close()">
+                    <span aria-hidden="true" style="color:white">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="submitEditProfile();">
+                    <div ng-if="!isForgot">
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-4">User Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-readonly="!control" ng-model="form.UserName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-4">Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="form.Email" ng-readonly="!control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <div ng-show="control">
+                                <button  type="submit" class="btn btn-custom margin-left pull-right ">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button  type="button" class="btn btn-default pull-right "
+                                    ng-click="control = false">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <div ng-show="!control">
+                                <button ng-click="edits = true;control = !control;" type="button"
+                                    class="btn btn-custom margin-left pull-right ">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-default pull-right " type="button" ng-click="$close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = false;" type="button" ng-show='false'></button>

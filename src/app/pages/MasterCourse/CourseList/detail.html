@@ -1,0 +1,81 @@
+<div>
+    <form class="form-horizontal">
+        <div class="form-group row clearfix">
+            <label class="col-sm-3">Program</label>
+            <div class="col-md-9">
+                <label>{{programSelected}}</label>
+            </div>
+        </div>
+        <!-- <div class="form-group row clearfix">
+            <label class="col-sm-3">Room</label>
+            <div class="col-md-9">
+                <label>{{arrayToString(ruangGroupedSelected)}}</label>
+            </div>
+        </div>
+        <div class="form-group row clearfix">
+            <label class="col-sm-3">Teacher</label>
+            <div class="col-md-9">
+                <label>{{arrayToString(guruGroupedSelected)}}</label>
+            </div>
+        </div> -->
+    </form>
+
+    <div class="btn-group">
+        <button data-toggle="modal" ng-click="addCourse()" class="btn btn-success btn-with-icon example-responsive">
+            <i class="fa fa-create"></i>
+            <span>Add Course</span>
+        </button>
+        <button class="btn btn-warning btn-with-icon example-responsive">
+            <i class="fa fa-edit"></i>
+            <span>Edit</span>
+        </button>
+    </div>
+
+    <div st-table="data" st-pipe="callServer" st-safe-src="data">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover custom-table">
+                <thead>
+                    <tr class="sortable">
+                        <th class="v-align" st-ratio="20" st-sort="id" rowspan="2" st-sort-default="false">No</th>
+                        <th class="v-align-m">Select</th>
+                        <th class="v-align-m">Course Name</th>
+                        <th class="v-align-m">Curricullum</th>
+                        <th class="v-align-m">Is Active</th>
+                        <th class="v-align-m">Students</th>
+                        <th class="v-align-m">Status Persetujuan</th>
+                        <th class="v-align-m">Disetujui Oleh</th>
+                        <th class="v-align-m">Disetujui Pada</th>
+                        <th class="v-align-m">Dibuat Oleh</th>
+                        <th class="v-align-m">Dibuat Pada</th>
+                    </tr>
+                </thead>
+                <tbody ng-show="!isLoading">
+                    <tr ng-repeat="s in data " ng-class="$index %2==0? 'table-strip': '' " context-menu="menuOptions" data-id="{{s.Id}}">
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Id}}</td>
+                        <td row-select="s" ng-click="select(s.Id)" class="v-align row-select"></td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.CourseName}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Curricullum}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.IsActive}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Students}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.StatusPersetujuan}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.DisetujuiOleh}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.DisetujuiPada}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.DibuatOleh}}</td>
+                        <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.DibuatPada}}</td>
+                    </tr>
+                    <tr ng-if="results.length ==  0">
+                        <td colspan="11">Data not found</td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="isLoading">
+                    <tr>
+                        <td colspan="11">
+                            <div class="loading-indicator"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+    </div>
+</div>

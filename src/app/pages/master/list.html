@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Master Ketentuan - List</h3>
+                <content-top></content-top>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    <button class="btn btn-custom example-file" ng-click="showForm();behaviour_add();">
+                        <i class="fa fa-file-text-o"></i>
+                    </button>
+                </div>
+                <div class="btn-group margin">
+                    <button ng-show="(selected.length > 0)" class="btn btn-success example-check">
+                        <i class="fa fa-check"></i>
+                    </button>
+                    <button ng-show="(selected.length > 0)" class="btn btn-warning example-close">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button ng-show="(selected.length > 0)" ng-click="openDelete()" class="btn btn-danger example-trash">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                <div st-table="data">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered custom-table">
+                            <thead>
+                                <tr class="sortable">
+                                    <th class="v-align table-id" rowspan="2" st-sort="id">No</th>
+                                    <th>Select</th>
+                                    <th st-sort="nama">Nama Ketentuan</th>
+                                    <th st-sort="prosedur">Nama Stored Procedure</th>
+                                    <th st-sort="kelompok">Nama Kelompok Ketentuan</th>
+                                    <th st-sort="status">Status</th>
+                                    <th st-sort="status_persetujuan">Status Persetujuan</th>
+                                    <th st-sort="disetujui_oleh">Disetujui</th>
+                                    <th st-sort="disetujui_pada">Disetujui Pada</th>
+                                    <th st-sort="dibuat_oleh">Dibuat</th>
+                                    <th st-sort="dibuat_pada">Dibuat Pada</th>
+                                </tr>
+                                <tr>
+                                    <th row-select-all="data" selected="selected" ng-click="selectAll(data)"></th>
+                                    <th>
+                                        <input st-search="nama" type="text" class="form-control input-sm">
+                                    </th>
+                                    <th>
+                                        <input st-search="prosedur" type="text" class="form-control input-sm">
+                                    </th>
+                                    <th>
+                                        <input st-search="kelompok" type="text" class="form-control input-sm">
+                                    </th>
+                                    <th>
+                                        <select st-search="status" class="form-control input-sm">
+                                            <option value="">Show All</option>
+                                            <option value="1">Aktif</option>
+                                            <option value="0">Tidak Aktif</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <select st-search="status_persetujuan" class="form-control input-sm">
+                                            <option value="">Show All</option>
+                                            <option value="1">FINAL_APPROVED</option>
+                                            <option value="0">NOT_APPROVED</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <input st-search="disetujui_oleh" type="text" class="form-control input-sm">
+                                    </th>
+                                    <th>
+                                        <input st-search="disetujui_pada" type="text" class="form-control input-sm">
+                                    </th>
+                                    <th>
+                                        <input st-search="dibuat_oleh" type="text" class="form-control input-sm">
+                                    </th>
+                                    <th>
+                                        <input st-search="dibuat_pada" type="text" class="form-control input-sm">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="s in (results =(data | filter:key))" class="editable-row" context-menu="menuOptions" data-id="{{s.id}}" ng-class="s.id %2 ==0?'table-strip':' '">
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.id}}</td>
+                                    <td row-select="s" ng-click="select(s.id)" class="v-align row-select"></td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.nama}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.lama}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.kelompok}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">
+                                        <span ng-if="s.status==1" ng-class="s.status==0?'red-siyn':'green-siyn'"> Aktif</span>
+                                        <span ng-if="s.status==0" ng-class="s.status==0?'red-siyn':'green-siyn'"> Tidak Aktif</span>
+                                    </td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">
+                                        <span ng-if="s.status_persetujuan==1" ng-class="s.status_persetujuan==0?'red-siyn':'green-siyn'"> FINAL_APPROVED</span>
+                                        <span ng-if="s.status_persetujuan==0" ng-class="s.status_persetujuan==0?'red-siyn':'green-siyn'"> NOT_APPROVED</span>
+                                    </td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.disetujui_oleh}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.disetujui_pada}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.dibuat_oleh}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.id);">{{s.dibuat_pada}}</td>
+                                </tr>
+                                <tr ng-if="results.length ==  0">
+                                    <td colspan="12">Data not found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

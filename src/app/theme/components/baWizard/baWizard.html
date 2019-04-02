@@ -1,0 +1,30 @@
+<div class="ba-wizard">
+    <div class="ba-wizard-navigation-container">
+        <div ng-repeat="t in $baWizardController.tabs" class="ba-wizard-navigation {{$baWizardController.tabNum == $index ? 'active' : ''}}" ng-click="$baWizardController.selectTab($index);cari($index);">
+            <div ng-if="title =='Master Program'" class="{{setTop == true ? 'circle-top' : 'circle'}} {{$baWizardController.tabNum == $index && step[$index] == false ? 'circle-red' : ''}} {{$baWizardController.tabNum != $index && step[$index] == true || $baWizardController.tabNum == $index && step[$index] == true ? 'circle-green' : ''}}">
+                <span>{{$index+1}}</span>
+            </div>
+            <div ng-if="title !='Master Program'" class="{{setTop == true ? 'circle-top' : 'circle'}} {{$baWizardController.tabNum == $index && step[$index] == true ? 'circle-red' : ''}} {{$baWizardController.tabNum != $index && step[$index] == true ? 'circle-green' : ''}}">
+                <span>{{$index+1}}</span>
+            </div>
+            {{t.title}}
+        </div>
+    </div>
+    <div class="progress ba-wizard-progress">
+        <div ng-if="title !='Resource Management'" class="progress-bar progress-bar-danger active" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: $baWizardController.progress + '%'}">
+        </div>
+        <div ng-if="title =='Resource Management'" class="progress-bar progress-bar-danger active" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{height: $baWizardController.progress + '%'}">
+        </div>
+    </div>
+    <div class="steps wid-auto" ng-transclude></div>
+    <nav class="wid-auto">
+        <ul class="pager ba-wizard-pager">
+            <li class="previous">
+                <button ng-disabled="$baWizardController.isFirstTab()" ng-click="$baWizardController.previousTab()" type="button" class=" btn btn-custom"><i class="fa fa-arrow-left"></i> Back</button>
+            </li>
+            <li class="next">
+                <button ng-disabled="$baWizardController.isLastTab()" ng-click="$baWizardController.nextTab()" type="button" class="btn btn-custom">Next <i class="fa fa-arrow-right"></i></button>
+            </li>
+        </ul>
+    </nav>
+</div>

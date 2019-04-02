@@ -1,0 +1,228 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title" ng-show="mode=='create'">Create New Topic</h3>
+                <h3 class="panel-title" ng-show="mode=='edit'">Edit Topic</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Topic Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.name" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Topic Summary</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" ng-model="form.summary" ng-readonly="!control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row cleafix">
+                        <label class="col-sm-4">Objectives</label>
+                        <div class="col-md-8">
+                            <p ng-repeat="x in objectives track by $index">{{x}}
+                                <font ng-click="deleteObjective($index)">X</font>
+                            </p>
+                            <div class="col-md-4" style="padding-left:0px">
+                                <input type="text" class="form-control" ng-model="objectiveText" ng-readonly="!control" style="width:300px" />
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-default" ng-click="addObjective()">Add Objective</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="control">
+                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-show="!add" ng-click="edits = true;control = !control;doEdit();">
+                                    <i class="fa fa-save"></i> Save</button>
+                                    <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-show="add" ng-click="edits = true;control = !control;doSave();">
+                                        <i class="fa fa-save"></i> Save</button>
+                                        <!-- new ng-click="control = !control; $close();" ng-show='edits == false' -->
+                                        <!-- old ng-show='edits == false' ng-click="$close()" -->
+                                        <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="control = !control; $close();" ng-show='edits == false'>
+                                            <i class="fa fa-close"></i> Cancel</button>
+
+                                            <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="control = !control" ng-show='edits == true'>
+                                                <i class="fa fa-close"></i> Cancel</button>
+                                            </div>
+                                            <div ng-show="!control">
+                                                <button class="btn btn-custom pull-right col-xs-6 col-md-2" ng-click="edits = true;control = !control;add=false;">
+                                                    <i class="fa fa-edit"></i> Edit</button>
+                                                    <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="close()">
+                                                        <i class="fa fa-arrow-left"></i> Close</button>
+                                                    </div>
+                                                    <!-- Control Button End -->
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <div style="margin-top: 80px; margin-bottom:40px">
+                                            <ul class="nav nav-tabs" style="background-color:rgba(42, 42, 175, 0.89)">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" ng-click="setTab('activities')">Activities</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" ng-click="setTab('prerequisites')">Prerequisites</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12" ng-show="tab=='activities'">
+                                                <div class="btn-group">
+                                                    <button data-toggle="modal" ng-click="addActivity()" class="btn btn-success btn-with-icon example-responsive">
+                                                        <i class="fa fa-create"></i>
+                                                        <span>Add Activity</span>
+                                                    </button>
+                                                    <button class="btn btn-warning btn-with-icon example-responsive">
+                                                        <i class="fa fa-edit"></i>
+                                                        <span>Edit</span>
+                                                    </button>
+                                                </div>
+
+                                                <div st-table="data" st-pipe="callServer" st-safe-src="activities">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-hover custom-table">
+                                                            <thead>
+                                                                <tr class="sortable">
+                                                                    <th class="v-align" st-ratio="20" st-sort="id" rowspan="2" st-sort-default="false">No</th>
+                                                                    <th class="v-align-m">Select</th>
+                                                                    <th class="v-align-m">Activity</th>
+                                                                    <th class="v-align-m">Activity Type</th>
+                                                                    <th class="v-align-m">Graded</th>
+                                                                    <th class="v-align-m">Sort Order</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody ng-show="!isLoading">
+                                                                <tr ng-repeat="s in activities " ng-class="$index %2==0? 'table-strip': '' " context-menu="menuOptions" data-id="{{s.Id}}">
+                                                                    <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.Id}}</td>
+                                                                    <td row-select="s" ng-click="select(s.Id)" class="v-align row-select"></td>
+                                                                    <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.name}}</td>
+                                                                    <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.type}}</td>
+                                                                    <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.graded}}</td>
+                                                                    <td ng-click="showForm(s);behaviour_view();view_object(s);">{{s.SortOrder}}</td>
+                                                                </tr>
+                                                                <tr ng-if="results.length ==  0">
+                                                                    <td colspan="6">Data not found</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tbody ng-show="isLoading">
+                                                                <tr>
+                                                                    <td colspan="6">
+                                                                        <div class="loading-indicator"></div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12" ng-show="tab=='prerequisites'">
+                                                <div class="row">
+                                                    <label class="col-md-2">
+                                                        <b>Restrictions :</b>
+                                                    </label>
+                                                    <div class="col-md-10" >
+                                                        <div>
+                                                            <b>Activity Completion</b><br/>
+                                                            <small>Require students to complete (or not complete) another activity.</small>
+                                                        </div>
+                                                        <div class="row">
+                                                            <form class="form-horizontal">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-12" >
+                                                                        <label class="pull-left text-left control-label " for="htc">Have to Complete : </label>
+                                                                        <div class="col-md-4">
+                                                                            <select class="form-control" id="htc">
+                                                                                <option>Choose topic or activity</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label class="pull-left text-left control-label">Grade : </label>
+                                                                            <label class="control-label pull-left" style="margin-left: 2rem;" for="txt1"> >= </label>    
+                                                                            <div class="col-md-offset-3" style=" padding-left: 1rem;">
+                                                                                <div class="col-md-4">
+                                                                                    <input type="text" name="txt1" id="txt1" class="form-control"/>         
+                                                                                </div>
+                                                                            </div>
+                                                                            <label class="control-label pull-left" for="txt2"> < </label>
+                                                                            <div class="col-md-offset-3" style=" padding-left: 1rem;">
+                                                                                <div class="col-md-4">
+                                                                                    <input type="text" name="txt2" id="txt2" class="form-control"/>         
+                                                                                </div>
+                                                                            </div> 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>                                        
+                                                        </div>
+                                                        <div style="margin-top: -2rem;">
+                                                            <b>Student Profile</b><br/>
+                                                            <small>Control access based on fields within the student’s profile.</small>
+                                                            <button class="btn btn-success" style="margin-top: -2rem; margin-left: 10rem;" ng-click="addContact()">Add Property</button>
+                                                            <!-- Buat table -->
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered table-hover table-condensed table-centered">
+                                                                  <tr>
+                                                                    <td>No</td>
+                                                                    <td>Student Property</td>
+                                                                    <td>Operator</td>
+                                                                    <td>Value</td>
+                                                                    <td>Action</td>
+                                                                </tr>
+                                                                <tr ng-repeat="d in contact" class="editable-row">
+                                                                    <td> {{$index}}</td>
+                                                                    <td>
+                                                                        <span editable-text="d.name" e-name="name" e-form="rowform" e-required>
+                                                                          {{ d.name || 'empty' }}
+                                                                      </span>
+                                                                    </td>
+                                                                  <td>
+                                                                     <span editable-text="d.age" e-name="age" e-form="rowform" e-required>
+                                                                          {{ d.age || 'empty' }}
+                                                                      </span>
+                                                                  </td>
+                                                                  <td>
+                                                                     <span editable-text="d.value" e-name="value" e-form="rowform" e-required>
+                                                                          {{ d.value || 'empty' }}
+                                                                      </span>
+                                                                  </td>
+                                                        <td>
+                                                            <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline"
+                                                              shown="inserted == d">
+                                                                  <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+                                                                      Save
+                                                                  </button>
+                                                                  <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+                                                                  Cancel
+                                                                </button>
+                                                          </form>
+                                                              <div class="buttons" ng-show="!rowform.$visible">
+                                                                <button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">Edit</button>
+                                                                <button class="btn btn-danger editable-table-button btn-xs" ng-click="removeContact($index)">Delete</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            </table>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                        <button class="btn btn-success">Save Prerequisites</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

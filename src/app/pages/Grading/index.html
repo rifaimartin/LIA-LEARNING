@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{privileges.CanRead?(privileges.MenuLabel+' - List'):'403 Forbidden'}}</h3>
+                <content-top ng-if="privileges.CanRead"></content-top>
+            </div>
+            <div class="panel-body" ng-if="privileges.CanRead">
+                <div class="btn-group">
+                    <button class="btn btn-custom example-responsive" ng-click="refreshTable()">
+                        <i class="glyphicon glyphicon-refresh" ng-class="spin==true?'gly-spin':''"></i>
+                    </button>
+                </div>
+                <div class="btn-group" ng-if="privileges.CanDelete">
+                    <button ng-show="(selected.length > 0)" ng-click="openDelete();" class="btn btn-danger btn-with-icon example-responsive">
+                        <i class="fa fa-trash"></i>
+                        <span>Delete</span>
+                    </button>
+                </div>
+                <div class="pull-right total-data">
+                    <span>Total Data : {{totalData}}</span>
+                </div>
+                <div st-table="data" st-pipe="callServer" st-safe-src="data">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered custom-table">
+                            <thead>
+                                <tr class="sortable">
+                                    <th class="v-align table-id" rowspan="2" st-sort="id">No</th>
+                                    <th class="wid44">Select</th>
+                                    <th st-sort="BranchName">Branch</th>
+                                    <th st-sort="BranchProgramName">Program</th>
+                                    <th st-sort="BranchClassCode">Class</th>
+                                    <th st-sort="OccurenceStartTime">Session</th>
+                                    <th st-sort="StudentFullName">Student</th>
+                                    <th st-sort="Customer">Activity</th>
+                                    <th st-sort="DocTotal">Activity Type</th>
+                                    <th st-sort="Score">Score</th>
+                                </tr>
+                                <tr>
+                                    <th row-select-all="data" selected="selected" ng-click="selectAll(data)"></th>
+                                    <th>
+                                        <input st-search="UnitName" type="text" class="form-control custom-control"
+                                            ng-model="DocNo" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <input st-search="BranchName" type="text" class="form-control custom-control"
+                                            ng-model="BranchName" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <input st-search="DocNo" type="text" class="form-control custom-control"
+                                            ng-model="DocNo" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <input st-search="DocDate" type="date" class="form-control custom-control"
+                                            ng-model="DocDate" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <input st-search="Customer" type="number" class="form-control custom-control"
+                                            ng-model="Customer" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <input st-search="DocTotal" type="number" class="form-control custom-control"
+                                            ng-model="DocTotal" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <input st-search="DocTotal" type="number" class="form-control custom-control"
+                                            ng-model="DocTotal" ng-change="changeFilter()">
+                                    </th>
+                                    <th>
+                                        <select st-search="DocStatusValue" ng-model="DocStatusValue" ng-change="changeFilter()"
+                                            class="form-control custom-control">
+                                            <option value=""></option>
+                                            <option value="Open">Open</option>
+                                            <option value="Closed">Closed</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody ng-show="!isLoading">
+                                <tr ng-repeat="s in (results =(data | filter:key))" class="editable-row" context-menu="menuOptions"
+                                    data-id="{{s.Id}}" ng-class="$index %2 ==0?'table-strip':' '">
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);">{{((page-1)*10)+$index+1}}</td>
+                                    <td row-select="s" ng-click="select(s.Id)" class="v-align row-select"></td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.BranchName}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.BranchProgramName}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.BranchClassCode}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.OccurenceStartDateTime | date:'dd-MMM-yyyy'}} {{s.OccurenceStartDateTime | date:'HH-mm'}}:{{s.OccurenceEndDateTime | date:'HH-mm'}} </td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">[{{s.StudentCardNo}}] {{s.StudentFullName}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.AssignmentName !== null ? s.AssignmentName : s.QuizName}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.AssignmentName !== null ? 'Assignment' : 'Quiz'}}</td>
+                                    <td ng-click="showForm();behaviour_view();view_object(s.Id);" class="autoWidth">{{s.Score}}</td>
+                                </tr>
+                                <tr ng-if="results.length ==  0">
+                                    <td colspan="12">Data not found</td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show="isLoading">
+                                <tr>
+                                    <td colspan="12">
+                                        <div class="loading-indicator"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right" st-pagination="" st-items-by-page="dataPageSize" st-displayed-pages="5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

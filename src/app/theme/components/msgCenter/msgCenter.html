@@ -1,0 +1,53 @@
+<ul class="al-msg-center clearfix">
+     <list-menu class="visible-lg-inline"></list-menu>
+    <li uib-dropdown>
+        <a href uib-dropdown-toggle>
+            <i class="fa fa-bell-o"></i>
+            <span>2</span>
+            <div class="notification-ring"></div>
+        </a>
+        <div uib-dropdown-menu class="top-dropdown-menu">
+            <i class="dropdown-arr"></i>
+            <div class="header clearfix">
+                <strong>Notifications</strong>
+            </div>
+            <div class="msg-list">
+                <a ui-sref="#" class="clearfix" ng-repeat="msg in notifications">
+                    <div class="img-area">
+                        <img ng-class="{'photo-msg-item' : !msg.image}" ng-src="{{::( msg.image ||  (users[msg.userId].name | profilePicture) )}}">
+                    </div>
+                    <div class="msg-area">
+                        <div ng-bind-html="getMessage(msg)"></div>
+                        <span>{{ msg.time }}</span>
+                    </div>
+                </a>
+            </div>
+            <a href>Show All Notifications</a>
+        </div>
+    </li>
+    <li uib-dropdown>
+        <a href class="msg" uib-dropdown-toggle>
+            <i class="fa fa-envelope-o"></i>
+            <span>2</span>
+            <div class="notification-ring"></div>
+        </a>
+        <div uib-dropdown-menu class="top-dropdown-menu">
+            <i class="dropdown-arr"></i>
+            <div class="header clearfix">
+                <strong>Message</strong>
+            </div>
+            <div class="msg-list">
+                <a href class="clearfix" ng-repeat="msg in messages">
+                    <div class="img-area">
+                        <img class="photo-msg-item" ng-src="{{::( users[msg.userId].name | profilePicture )}}">
+                    </div>
+                    <div class="msg-area">
+                        <div>{{ msg.text }}</div>
+                        <span>{{ msg.time }}</span>
+                    </div>
+                </a>
+            </div>
+            <a href>Show All Message</a>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Master Ketentuan - Form</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4">Nama Ketentuan</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="form.nama" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Nama Prosedur TerSave</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="form.lama" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">Nama Kelompok Ketentuan</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="form.kelompok" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <!-- Control Menu -->
+                    <div ng-show="control">
+                        <button ng-show="!add" ng-click="edits = true;control = !control;doEdit();" class="btn btn-custom pull-right margin"><i class="fa fa-save"></i> Save</button>
+                        <button ng-show="add" ng-click="edits = true;control = !control;doSave();" class="btn btn-custom pull-right margin"><i class="fa fa-save"></i> Save</button>
+                        <button ng-show='edits == false' class="btn btn-default pull-right" ng-click="$close()"><i class="fa fa-close"></i> Cancel</button>
+                        <button ng-click="control = !control" ng-show='edits == true' class="btn btn-default pull-right"><i class="fa fa-close"></i> Cancel</button>
+                    </div>
+                    <div ng-show="!control">
+                        <button ng-click="edits = true;control = !control;add=false;" class="btn btn-custom pull-right"><i class="fa fa-edit"></i> Edit</button>
+                        <button class="btn btn-default pull-right" ng-click="$close()"><i class="fa fa-arrow-left"></i> Close</button>
+                    </div>
+                    <!-- Control Menu End -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

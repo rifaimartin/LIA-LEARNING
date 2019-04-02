@@ -1,0 +1,165 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">Add Items</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="col-sm-6 no-padding">
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-3">Unit</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="form.listUnit.Name" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-3">Branch</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="form.listBranch.Name" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 no-padding col-distance">
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-3">Customer</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="form.listCustomer.Name" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-3">Ref. Doc.</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <ui-select ng-model="form.listTransaction" lass="form-control" theme="bootstrap"
+                                        ng-change="getRefNo(form.listTransaction)" ng-disabled="true" required>
+                                        <ui-select-match placeholder="Select Ref. Doc.">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="list in transaction | filter: $select.search">
+                                            <div ng-bind-html="list.Name| highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="refresh('transaction')"
+                                            ng-disabled='true'>
+                                            <i class="glyphicon glyphicon-refresh" ng-class="{'gly-spin':spinTransaction==true}"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no-padding">
+
+                        <div class="table-responsive" style="min-height:300px">
+                            <table class="table table-bordered custom-table">
+                                <thead>
+                                    <tr>
+                                        <th class="wid44">No.</th>
+                                        <th>Doc. No.</th>
+                                        <th>Doc. Date</th>
+                                        <th>Due Date</th>
+                                        <th>Total</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="d in popupDetails" ng-switch="dayDataCollapse[$index]" ng-init="parent = $index">
+                                    <tr style="cursor:pointer" ng-click="selectTableRow($index)">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                {{d.DocNo}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                {{d.DocDate | date:'dd-MM-yyyy'}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                {{d.DueDate | date:'dd-MM-yyyy'}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col-sm-12 align-right">
+                                                {{d.Total | number}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                {{d.Remarks}}
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-switch-when="true">
+                                        <td colspan="6">
+                                            <div style="padding-left: 33px;">
+                                                <div>
+                                                    <table class="table table-bordered custom-table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Select</th>
+                                                                <th>Item</th>
+                                                                <th>Qty</th>
+                                                                <th>Open Qty</th>
+                                                                <th>Unit</th>
+                                                                <th>Price</th>
+                                                                <th>Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr data-ng-repeat="ds in popupDetails[$index].Details">
+                                                                <td>
+                                                                    <input type="checkbox" ng-model="popupCheckbox[parent][$index]"
+                                                                        ng-if="ds.OpenQty !== 0" />
+                                                                </td>
+                                                                <td>{{ds.ItemName}}</td>
+                                                                <td class="align-right">{{ds.Qty}}</td>
+                                                                <td class="align-right">{{ds.OpenQty}}</td>
+                                                                <td>{{ds.UomName}}</td>
+                                                                <td class="align-right">{{ds.Price | number}}</td>
+                                                                <td class="align-right">{{ds.Qty * ds.Price | number}}</td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="popupDetails.length==0">
+                                        <td colspan="8" class="text-center">No invoice found </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no-padding">
+                        <div class="form-group row clearfix">
+                            <label class="col-sm-4"></label>
+                            <div class="col-md-8">
+                                <!-- Control Button -->
+                                <div ng-show="control">
+                                    <button ng-disabled="loading" ng-click="addDetails();$close();" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                        <i class="fa fa-save"></i> OK</button>
+                                    <button ng-disabled="loading" type="button" class="btn btn-default pull-right col-xs-6 col-md-2"
+                                        ng-click="$close()">
+                                        <i class="fa fa-close"></i> Cancel</button>
+                                </div>
+
+                                <!-- Control Button End -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = false;edit = true;" type="button" ng-show='hideButton'></button>

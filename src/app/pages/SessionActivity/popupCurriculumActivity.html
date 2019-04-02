@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">Curriculum Administration - Form</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <!-- <div class="form-group row clearfix">
+                        <label class="col-sm-2">Branch</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="CurriculumFromList.BranchProgramBranchName"
+                                readonly>
+                        </div>
+                    </div> -->
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Program</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="CurriculumFromList.MasterProgramName"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Path</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="CurriculumFromList.Path" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Curriculum</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="CurriculumFromList.CurriculumName"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <br>
+                        <div class="col-sm-12 ">
+                            <table class="table table-hover table-bordered custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th width="10">No</th>
+                                        <th>Activity</th>
+                                        <th>Activity Type</th>
+                                        <th>Sequence</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="CurriculumFromList.Details.length !== 0" ng-repeat="f in CurriculumFromList.Details"
+                                        ng-model="CurriculumFromList.Details">
+                                        <td><input type="checkbox" ng-model="CurriculumFromList.CheckboxStatus[$index]" ></td>
+                                        <td>{{$index+1}}</td>
+
+                                        <td ng-click="DetailBehavior(false,CurriculumFromList.Details[$index])">
+                                            {{CurriculumFromList.Details[$index].ActivityName}}
+                                        </td>
+                                        <td ng-click="DetailBehavior(false,CurriculumFromList.Details[$index])">
+                                            {{CurriculumFromList.Details[$index].ActivityType}}
+                                        </td>
+                                        <td class="input-table">
+                                            <input class="free-text form-control" style="text-align: right;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                ng-model="CurriculumFromList.Details[$index].Sequence" ng-readonly="!control" />
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <tbody ng-show="isLoadingPopupCurriculumTable">
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="loading-indicator"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>                                
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div >
+                                <button ng-click="AddCurriculumActivity(); $close()" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Add</button>
+                                <button ng-click="$close()" class="btn btn-default pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = !control;edit = true;" type="button" ng-show='hideButton'></button>

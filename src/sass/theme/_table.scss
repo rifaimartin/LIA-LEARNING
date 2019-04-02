@@ -1,0 +1,449 @@
+@import "../theme/color.scss";
+
+.table {
+    margin-bottom: 0px;
+    &>thead {
+        &>tr {
+            &>th {
+                border-bottom: 1px solid $border-light;
+                white-space: nowrap;
+                &:first-child {
+                    text-align: center;
+                }
+                &:last-child {
+                    padding-right: 16px;
+                }
+            }
+        }
+    }
+    &>tbody {
+        &>tr {
+            &>tr:first-child {
+                padding-top: 1px;
+            }
+            &>td {
+                padding: 0px 8px;
+                line-height: 35px;
+                border-top: 1px solid $border-light;
+                &:first-child {
+                    text-align: center;
+                }
+                &:last-child {
+                    padding-right: 16px;
+                }
+            }
+            &>.text-left {
+                text-align: left !important;
+            }
+            &>.text-right {
+                text-align: right !important;
+            }
+        }
+    }
+}
+
+.table-id {
+    text-align: left !important;
+    width: 40px;
+}
+
+.table-arr {
+    width: 5px;
+    padding: 10px 8px 8px 0 !important;
+}
+
+.table-no-borders {
+    border: none;
+    td,
+    th,
+    tr {
+        border: none !important;
+    }
+}
+
+.editable-wrap .btn-group.form-control {
+    background-color: transparent;
+}
+
+.editable-tr-wrap {
+    .editable-wrap {
+        vertical-align: super;
+    }
+    .editable-controls input.editable-input {
+        width: 110px;
+    }
+    td {
+        width: 20%;
+    }
+}
+
+.editable-table-button {
+    width: 70px;
+}
+
+.add-row-editable-table {
+    margin-bottom: 10px;
+}
+
+.add-row-editable-table+table {
+    margin-bottom: 5px;
+}
+
+.select-page-size-wrap {
+    width: 150px;
+}
+
+.table .header-row th {
+    vertical-align: middle;
+    padding: 0 8px;
+}
+
+tr.editable-row {
+    input.form-control {
+        vertical-align: middle;
+    }
+}
+
+.select-td .editable-select {
+    margin-bottom: 1px;
+}
+
+@media screen and (max-width: 1199px) {
+    .editable-tr-wrap {
+        .editable-wrap {
+            vertical-align: middle;
+        }
+    }
+}
+
+.browser-icons {
+    width: 41px;
+}
+
+.st-sort-ascent,
+.st-sort-descent {
+    position: relative;
+}
+
+.st-sort-ascent:after,
+.st-sort-descent:after {
+    width: 8px;
+    margin-left: 5px;
+    height: 0;
+    border-bottom: 4px solid #fff !important;
+    border-top: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    margin-bottom: 2px;
+}
+
+.st-sort-descent:after {
+    transform: rotate(-180deg);
+    margin-bottom: -2px;
+}
+
+.sortable {
+    th {
+        cursor: pointer;
+        &:after {
+            content: '';
+            display: inline-block;
+        }
+    }
+}
+
+a.email-link {
+    color: $default-text;
+    &:hover {
+        color: $danger;
+    }
+}
+
+input.search-input {
+    margin-left: -8px;
+    padding-left: 8px;
+}
+
+.table .pagination {
+    margin: 4px 0 -12px 0;
+    a {
+        cursor: pointer;
+    }
+}
+
+.vertical-scroll {
+    max-height: 214px;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    background: transparent;
+    cursor: pointer;
+}
+
+.pagination>li:first-child>a,
+.pagination>li:first-child>span {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.pagination>li:last-child>a,
+.pagination>li:last-child>span {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.status-button {
+    width: 60px;
+}
+
+.table {
+    .editable-wrap .editable-controls,
+    .editable-wrap .editable-error {
+        vertical-align: sub;
+        .btn {
+            &.dropdown-toggle {
+                padding: 3px 20px;
+                margin-top: 3px;
+            }
+            padding: 3px 8px;
+        }
+        input {
+            line-height: none;
+            height: 30px;
+        }
+    }
+}
+
+.form-inline button[type="submit"].editable-table-button {
+    margin-left: 0;
+}
+
+.table {
+    &>thead {
+        &>tr {
+            &>th {
+                border-bottom: none;
+            }
+        }
+    }
+    &>tbody {
+        &>tr.no-top-border {
+            &:first-child>td {
+                border-top: none;
+            }
+        }
+    }
+}
+
+.black-muted-bg {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.table-hover {
+    >tbody>tr:hover {
+        background-color: #fffccc;
+        cursor: pointer;
+    }
+}
+
+.table-bordered,
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td {
+    border: 1px solid $border-light;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #eee;
+}
+
+@mixin color-row($color) {
+    background-color: rgba($color, 0.7);
+    color: $label-text;
+    border: none;
+    a.email-link {
+        color: $label-text;
+        &:hover {
+            color: $danger;
+        }
+    }
+}
+
+.table>tbody>tr.primary>td {
+    @include color-row($primary);
+}
+
+.table>tbody>tr.success>td {
+    @include color-row($success);
+}
+
+.table>tbody>tr.warning>td {
+    @include color-row($warning);
+}
+
+.table>tbody>tr.danger>td {
+    @include color-row($danger);
+}
+
+.table>tbody>tr.info>td {
+    @include color-row($info);
+}
+
+.editable-click,
+a.editable-click {
+    color: $default-text;
+    border-bottom: dashed 1px $border;
+}
+
+th {
+    font-weight: $font-normal;
+}
+
+.editable-empty {
+    color: $danger-dark;
+}
+
+.table>tbody>tr>th {
+    border: none;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    color: $default-text;
+    border-color: $border;
+}
+
+
+.pagination>li:first-of-type>a,
+.pagination>li:first-of-type>span {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.pagination>li:last-of-type>a,
+.pagination>li:last-of-type>span {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: $primary;
+    border-color: $border;
+}
+
+.pagination>li>a:hover,
+.pagination>li>span:hover,
+.pagination>li>a:focus,
+.pagination>li>span:focus {
+    background-color: $lia;
+    color: $white;
+    transition: all 0.1s ease-in-out;
+}
+
+.editable-buttons .btn-with-icon i {
+    margin-right: 0;
+}
+
+//Custom SCSS
+.table-responsive {
+    margin-top: 10px;
+}
+
+.table-strip {
+    background: rgba(1, 107, 177, 0.1);
+}
+
+.bg-cream{
+    background-color: #fdf2cc!important;
+}
+.custom-table th {
+    text-align: center !important;
+    background-color: $lia;
+    color: #fff;
+}
+.custom-table td {
+    line-height: 25px !important;
+    white-space: nowrap !important;
+}
+
+.red {
+    color: #f44336 !important;
+}
+
+.blue {
+    color: #00BCD4 !important;
+}
+
+.pagination>.active>a {
+    background-color: #006BB1 !important;
+}
+
+.v-align {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+.red-siyn {
+    &:before {
+        content: "\f00d";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        color: #dd4b39;
+        margin-right: 3px;
+        font-size: 13px;
+        position: relative;
+    }
+}
+.pending-siyn {
+    &:before {
+        content: "\f017";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        color: #dd4b39;
+        margin-right: 3px;
+        font-size: 13px;
+        position: relative;
+    }
+}
+.green-siyn {
+    &:before {
+        content: "\f00c";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        color: #00a65a;
+        font-size: 13px;
+        position: relative;
+    }
+}
+
+.st-selected {
+    background-color: #fffccc!important;
+}
+
+.bg-light {
+    background-color: #fffccc!important;
+}
+
+.input-table {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.no-padding{
+    padding: 0px !important;
+}

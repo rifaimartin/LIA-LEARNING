@@ -1,0 +1,36 @@
+#preloader{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1000;
+text-align: center;
+background: url('../assets/img/background_body.png') repeat;
+}
+
+#preloader:before {    /* create a full-height inline block pseudo=element */
+    content: ' ';
+    display: inline-block;
+    vertical-align: middle;  /* vertical alignment of the inline element */
+    height: 100%;
+}
+
+#preloader img {
+    display: inline-block;
+    vertical-align: middle;  /* vertical alignment of the inline element */
+    width: 30% !important;
+}
+
+@media(max-width: 768px){
+    #preloader img {
+        width: 80% !important;
+
+    }
+}
+@media(max-width: 414px){
+    #preloader img{
+        width: 90% !important;
+    }
+}
+

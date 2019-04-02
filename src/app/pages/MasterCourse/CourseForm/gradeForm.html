@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Grade Item</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Graded Activity</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-readonly="!control">
+                                <option>Lesson</option>
+                                <option>Quiz</option>
+                                <option>Assignment</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">ID (for Custom Calculation)</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" ng-model="form.CatatanFollowUp" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Grade System</label>
+                        <div class="col-md-8">
+                            <select class="form-control" ng-readonly="!control">
+                                <option>Value</option>
+                                <option>Scale</option>
+                                <option>Comment</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Min Grade</label>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" ng-model="form.CatatanFollowUp" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Max Grade</label>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" ng-model="form.CatatanFollowUp" ng-readonly="!control">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Grade to Pass</label>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" ng-model="form.CatatanFollowUp" ng-readonly="!control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4">Weight</label>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" ng-model="form.CatatanFollowUp" ng-readonly="!control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="control">
+                                <button ng-show="!add" ng-click="edits = true;control = !control;doEdit();" class="btn btn-custom pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show="add" ng-click="edits = true;control = !control;doSave();" class="btn btn-custom pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show='edits == false' class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                                <button ng-click="control = !control" ng-show='edits == true' class="btn btn-default pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <div ng-show="!control">
+                                <button ng-click="edits = true;control = !control;add=false;" class="btn btn-custom pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

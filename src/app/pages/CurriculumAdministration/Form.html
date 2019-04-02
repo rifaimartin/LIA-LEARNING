@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">{{privileges.MenuLabel}} - Form</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <!-- <div class="form-group row clearfix">
+                        <label class="col-sm-2">Branch</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="form.BranchProgramBranchName" readonly>
+                        </div>
+                    </div> -->
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Program</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="form.MasterProgramName" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Path</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="form.Path" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Curriculum</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="form.CurriculumName" readonly>
+                        </div>
+                    </div>
+                    <div class="btnFormTable">
+                        <button type="button" class="btn btn-custom" ng-show="control" ng-click="showPopupActivity()"
+                            data-placement="right" title="Choose Branch first!">
+                            <i class="fa fa-plus"></i> Add Activity </button>
+                    </div>
+                    <div >
+                        <table class="table table-hover table-bordered custom-table">
+                            <thead>
+                                <tr>
+                                    <th class="wid44">No</th>
+                                    <th>Activity</th>
+                                    <th>Activity Type</th>
+                                    <th>Difficulty</th>
+                                    <th>Duration (Minute)</th>
+                                    <th ng-if="control" class="wid44">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-show="!isLoadingForm">
+                                <tr ng-if="form.Details.length !== 0" ng-repeat="f in form.Details" ng-model="form.Details">
+                                    <td>{{$index+1}}</td>
+
+                                    <td ng-click="DetailBehavior(false,form.Details[$index])">
+                                        {{form.Details[$index].ActivityName}}
+                                    </td>
+                                    <td ng-click="DetailBehavior(false,form.Details[$index])">
+                                        {{form.Details[$index].ActivityType}}
+                                    </td>
+                                    <td class="input-table">
+                                        <div class="input-group">
+                                            <ui-select ng-model="form.Details[$index].selectedDifficulty" lass="form-control free-text"
+                                                class="" theme="bootstrap" ng-disabled="!control">
+                                                <ui-select-match placeholder="Select Difficulty">{{$select.selected.Value}}</ui-select-match>
+                                                <ui-select-choices repeat="list in difficulty" position="down">
+                                                    <div ng-bind-html="list.Value | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </td>
+                                    <td class="input-table">
+                                        <input class="free-text form-control align-right" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                            ng-model="form.Details[$index].Duration" ng-init=" form.Details[$index].ActivityType == 'Lesson' ? form.Details[$index].Duration = 0 " ng-readonly="!control || form.Details[$index].ActivityType == 'Lesson'" />
+                                    </td>
+                                    <td class="v-align input-table" ng-if="control">
+                                        <i ng-click="deleteInTable($index,'form')" class="ion-trash-b deleteItem text-danger"></i>
+                                    </td>
+                                </tr>
+
+                                <tr ng-if="form.Details.length == 0 || form.Details == undefined ">
+                                    <td colspan="11">table is empty</td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-show="isLoadingForm">
+                                <tr>
+                                    <td colspan="12">
+                                        <div class="loading-indicator"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div ng-show="control">
+                                <button ng-show="!add" ng-if="isTeacher == undefined" ng-click="doEdit()" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show="add" ng-click="$close()" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-save"></i> Save</button>
+                                <button ng-show='edits == false' class="btn btn-default pull-right col-xs-6 col-md-2"
+                                    ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                                <button ng-click="control = !control" ng-show='edits == true' class="btn btn-default pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <div ng-show="!control">
+                                <button ng-click="edits = true;control = !control;add=false;" ng-show="isTeacher == undefined && privileges.CanUpdate" class="btn btn-custom margin-left pull-right col-xs-6 col-md-2">
+                                    <i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-arrow-left"></i> Close</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = !control;edit = true;" type="button" ng-show='hideButton'></button>

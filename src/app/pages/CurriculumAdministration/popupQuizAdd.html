@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">Multiple Choice Popoup</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="pushToQuiz();$close()">
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Question</label>
+                        <div class="col-md-10">
+                            <div text-angular class="question" ng-model="addQuize.Question"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix" style="margin-top: 10px;" ng-repeat="s in addQuize.QuizQuestionsMultipleChoices">
+                        <label class="col-sm-2" ng-if="$index==0">Choices</label>
+                        <div class="col-md-10" style="padding-left:0;" ng-class="$index > 0 ?'col-md-offset-2':''">
+                            <div>
+                                {{s.Choice}}.
+                                <div style="width: 98%; float: right;">
+                                    <div text-angular class="choises" ng-model="addQuize.QuizQuestionsMultipleChoices[$index].ChoiceText"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2"></label>
+                        <div class="col-md-10">
+                            <button class="btn btn-custom" ng-disabled="huruf==5" type="button" ng-click="addChoises(huruf)">Add
+                                Choice</button>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-2">Answer</label>
+                        <div class="col-md-4">
+                            <ui-select ng-model="addQuize.Answer" lass="form-control" theme="bootstrap">
+                                <ui-select-match placeholder="Select Answer">{{$select.selected.Choice}}</ui-select-match>
+                                <ui-select-choices repeat="list in addQuize.QuizQuestionsMultipleChoices | filter: $select.search">
+                                    <div ng-bind-html="list.Choice | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-md-2">Correct Point</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="addQuize.RightPoint"
+                                style="text-align: right" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-md-2">Incorrect Point</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" ng-model="addQuize.WrongPoint"
+                                style="text-align: right" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        </div>
+                    </div>
+                    <div class="form-group row clearfix">
+                        <label class="col-md-4"></label>
+                        <div class="col-md-8">
+                            <button class="btn btn-custom pull-right col-xs-6 col-md-2 margin-left" type="submit">
+                                <i class="fa fa-save"></i> Save</button>
+                            <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()" type="button">
+                                <i class="fa fa-arrow-left"></i> Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = !control;edit = true;" type="button" ng-show='hideButton'></button>

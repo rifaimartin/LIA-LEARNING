@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading panel-lia">
+                <h3 class="panel-title">Activity</h3>
+                <button type="button" class="toast-close-button" data-dismiss="dialog" ng-click="$close()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group row clearfix">
+                        <table class="table table-hover table-bordered custom-table">
+                            <thead>
+                                <tr>
+                                    <th class="table-id v-align" rowspan="2">No</th>
+                                    <!-- <th>Branch</th> -->
+                                    <th>Program</th>
+                                    <th>Path</th>
+                                    <th>Curriculum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="branchprogramcurriculum.length !== 0" ng-repeat="s in branchprogramcurriculum"
+                                    ng-click="showCurriculumActivity(s);$close()">
+                                    <td class="table-id v-align">{{$index + 1}}</td>
+                                    <!-- <td>{{branchprogramcurriculum[$index].BranchProgramBranchName}}</td> -->
+                                    <td>{{branchprogramcurriculum[$index].MasterProgramName}}</td>
+                                    <td>{{branchprogramcurriculum[$index].Path}}</td>
+                                    <td>{{branchprogramcurriculum[$index].CurriculumName}}</td>
+                                </tr>
+
+                                <tr ng-if="branchprogramcurriculum.length == 0 || branchprogramcurriculum == undefined">
+                                    <td colspan="11">table is empty</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group row clearfix">
+                        <label class="col-sm-4"></label>
+                        <div class="col-md-8">
+                            <!-- Control Button -->
+                            <div>
+                                <button class="btn btn-default pull-right col-xs-6 col-md-2" ng-click="$close()">
+                                    <i class="fa fa-close"></i> Cancel</button>
+                            </div>
+                            <!-- Control Button End -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="hideButton" ng-click="control = !control;edit = true;" type="button" ng-show='hideButton'></button>

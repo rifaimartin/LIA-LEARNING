@@ -1,0 +1,51 @@
+<div class="page-top clearfix" scroll-position="scrolled" max-height="50" ng-class="{'scrolled': scrolled}">
+    <a href="#/dashboard" class="al-logo clearfix">
+        <span style="color:#2065ad">
+            <img src="assets/img/logo.png" />
+    </a>
+    <a href class="collapse-menu-link ion-navicon" ba-sidebar-toggle-menu></a>
+    <div class="search brand-lia">
+        LIA Digital
+    </div>
+    <div class="search brand-lia" style="background-color: red!important; width:50px" ng-if="dev">
+        DEV
+    </div>
+    <div class="user-profile clearfix">
+        <div class="al-user-profile" uib-dropdown>
+            <a uib-dropdown-toggle class="profile-toggle-link">
+                <img ng-src="{{::( 'avatar' | profilePicture )}}">
+            </a>
+            <ul class="top-dropdown-menu profile-dropdown" uib-dropdown-menu>
+                <!-- <li>
+                    <i class="dropdown-arr"></i>
+                </li> -->
+                <li class="user-header">
+                    <a class="user-info" href="#/Profile">
+                        <img class="user-image" ng-src="{{::( 'avatar' | profilePicture )}}">
+                        <p>{{FullUserName}}</p>
+                        <div class="w-wrap">
+                            <small ng-repeat="s in Unit" uib-popover-html="'{{Roles(s)}}'" popover-trigger="mouseenter" popover-title="{{s.UnitCode}}"
+                                popover-placement="left">{{(Unit.length-1) == $index?s.UnitCode:s.UnitCode+' . '}}</small>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/Settings">
+                        <i class="fa fa-cog" aria-hidden='false' id="setting"></i> Settings</a>
+                </li>
+                <li>
+                    <a href="#/notification">
+                        <i class="fa fa-bell-o" aria-hidden='false' id="notif"></i> Notification</a>
+                </li>
+                <li class="divider"></li>
+                <list-menu class="hidden-lg"></list-menu>
+                <li class="divider hidden-lg"></li>
+                <li>
+                    <a href="#" ng-click="logout()" class="signout">
+                        <i class="fa fa-power-off"></i>Sign out</a>
+                </li>
+            </ul>
+        </div>
+        <msg-center></msg-center>
+    </div>
+</div>

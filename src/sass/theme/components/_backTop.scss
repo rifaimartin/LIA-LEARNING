@@ -1,0 +1,24 @@
+@import "../color.scss";
+$height: 52px;
+$primary : #ffffff;
+.back-top {
+  width: $height;
+  height: $height;
+  cursor: pointer;
+  z-index: 9999;
+  display: none;
+  text-decoration: none;
+  right: (180px - $height) / 2;
+  bottom: 40px !important;
+  font-size: 45px;
+  text-align: center;
+  color: #ffffff;
+  background: $lia;
+  border-radius: 5px;
+  line-height: 46px;
+  &:hover {
+    color: #ffffff;
+    background: $greydarken-3;
+    transition: 0.5s ease-in-out;
+  }
+}

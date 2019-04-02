@@ -1,0 +1,59 @@
+.table-panel {
+  height: 295px;
+}
+
+.scheduler{
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 11px;
+  .clickable{
+   cursor: pointer; 
+  }
+  .title{
+    min-width: 100px;
+    padding: 5px;
+  }
+  .day{
+    font-size: 11px;
+    font-weight: 400;
+    min-width: 20px;
+    text-align: center;
+    padding-left:0px;
+    padding-right: 0px;
+  }
+  .no-padding{
+    padding: 0px;
+  }
+  .room{
+    padding-left:10px;
+  }
+  .schedule{
+    padding-left: 30px;
+  }
+  .clock{
+    padding-left: 50px;
+  }
+  .inside-table{
+    margin: -1px;
+  }
+  table{
+    table-layout: fixed;
+    border-collapse: collapse;
+    th{
+      padding: 5px;
+      border: 1px solid gray;
+      text-align: center;
+      font-weight: bold;
+      color: black;
+    }
+    td{
+      padding: 5px;
+      border: 1px solid gray;
+      font-weight: 300;
+      color: black;
+    }
+    
+  }
+
+  
+}

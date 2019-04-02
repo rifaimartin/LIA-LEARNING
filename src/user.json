@@ -1,0 +1,35 @@
+[
+{
+    "id" : "1",
+    "password" : "tester",
+    "email": "tester@tester.com",
+    "nama": "rizqi fadhillah",
+    "status": "0",
+    "role": [
+        "guru",
+        "hrd"
+    ]
+},
+{
+    "id" : "2",
+    "password" : "otet",
+    "email": "rizqifadhillah06@gmail.com",
+    "nama": "rizqi fadhillah",
+    "status": "0",
+    "role": [
+        "guru",
+        "hrd"
+    ]
+},
+{
+    "id" : "3",
+    "password" : "dudii12",
+    "email": "dudyiskandar325@gmail.com",
+    "nama": "Dudi Iskandar",
+    "status": "0",
+    "role": [
+        "guru",
+        "hrd"
+    ]
+}
+]
